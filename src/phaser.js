@@ -1,26 +1,8 @@
 /**
  * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ * @copyright    2019 Photon Storm Ltd.
+ * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
-
-//  For file loading of shader source outside of Webpack
-//  See: https://github.com/photonstorm/phaser/issues/3598
-
-/* eslint-disable */
-if (typeof SHADER_REQUIRE)
-{
-    var fs = require('fs');
-
-    require.extensions['.frag'] = function (module, filename) {
-        module.exports = fs.readFileSync(filename, 'utf8');
-    };
-
-    require.extensions['.vert'] = function (module, filename) {
-        module.exports = fs.readFileSync(filename, 'utf8');
-    };
-}
-/* eslint-enable */
 
 require('./polyfills');
 
@@ -34,27 +16,31 @@ var Extend = require('./utils/object/Extend');
 var Phaser = {
 
     Actions: require('./actions'),
-    Animation: require('./animations'),
+    Animations: require('./animations'),
+    BlendModes: require('./renderer/BlendModes'),
     Cache: require('./cache'),
     Cameras: require('./cameras'),
+    Core: require('./core'),
     Class: require('./utils/Class'),
     Create: require('./create'),
     Curves: require('./curves'),
     Data: require('./data'),
     Display: require('./display'),
     DOM: require('./dom'),
-    EventEmitter: require('./events/EventEmitter'),
-    Game: require('./boot/Game'),
+    Events: require('./events'),
+    Game: require('./core/Game'),
     GameObjects: require('./gameobjects'),
     Geom: require('./geom'),
     Input: require('./input'),
     Loader: require('./loader'),
     Math: require('./math'),
     Physics: require('./physics'),
+    Plugins: require('./plugins'),
     Renderer: require('./renderer'),
+    Scale: require('./scale'),
+    ScaleModes: require('./renderer/ScaleModes'),
     Scene: require('./scene/Scene'),
     Scenes: require('./scene'),
-    Sound: require('./sound'),
     Structs: require('./structs'),
     Textures: require('./textures'),
     Tilemaps: require('./tilemaps'),
@@ -64,9 +50,36 @@ var Phaser = {
 
 };
 
+//  Merge in the optional plugins
+
+if (typeof FEATURE_SOUND)
+{
+    Phaser.Sound = require('./sound');
+}
+
+if (typeof PLUGIN_CAMERA3D)
+{
+    Phaser.Cameras.Sprite3D = require('../plugins/camera3d/src');
+    Phaser.GameObjects.Sprite3D = require('../plugins/camera3d/src/sprite3d/Sprite3D');
+    Phaser.GameObjects.Factories.Sprite3D = require('../plugins/camera3d/src/sprite3d/Sprite3DFactory');
+    Phaser.GameObjects.Creators.Sprite3D = require('../plugins/camera3d/src/sprite3d/Sprite3DCreator');
+}
+
+if (typeof PLUGIN_FBINSTANT)
+{
+    Phaser.FacebookInstantGamesPlugin = require('../plugins/fbinstant/src/FacebookInstantGamesPlugin');
+}
+
 //   Merge in the consts
 
 Phaser = Extend(false, Phaser, CONST);
+
+/**
+ * The root types namespace.
+ * 
+ * @namespace Phaser.Types
+ * @since 3.17.0
+ */
 
 //  Export it
 

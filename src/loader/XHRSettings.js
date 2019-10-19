@@ -1,20 +1,7 @@
 /**
  * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
- */
-
-/**
- * @typedef {object} XHRSettingsObject
- *
- * @property {XMLHttpRequestResponseType} responseType - [description]
- * @property {boolean} async - [description]
- * @property {string} user - [description]
- * @property {string} password - [description]
- * @property {number} timeout - [description]
- * @property {?string} header - [description]
- * @property {?string} headerValue - [description]
- * @property {(string|undefined)} overrideMimeType - [description]
+ * @copyright    2019 Photon Storm Ltd.
+ * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
 /**
@@ -29,7 +16,7 @@
  * @param {string} [password=''] - Optional password for the XHR request.
  * @param {integer} [timeout=0] - Optional XHR timeout value.
  *
- * @return {XHRSettingsObject} The XHRSettings object as used by the Loader.
+ * @return {Phaser.Types.Loader.XHRSettingsObject} The XHRSettings object as used by the Loader.
  */
 var XHRSettings = function (responseType, async, user, password, timeout)
 {
@@ -60,6 +47,7 @@ var XHRSettings = function (responseType, async, user, password, timeout)
         //  setRequestHeader
         header: undefined,
         headerValue: undefined,
+        requestedWith: false,
 
         //  overrideMimeType
         overrideMimeType: undefined

@@ -1,7 +1,7 @@
 /**
  * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ * @copyright    2019 Photon Storm Ltd.
+ * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
 require('./polyfills');
@@ -13,16 +13,24 @@ var Extend = require('./utils/object/Extend');
  * @namespace Phaser
  */
 
+/**
+ * The root types namespace.
+ * 
+ * @namespace Phaser.Types
+ * @since 3.17.0
+ */
+
 var Phaser = {
 
-    Animation: require('./animations'),
+    Animations: require('./animations'),
     Cache: require('./cache'),
     Cameras: { Scene2D: require('./cameras/2d') },
+    Core: require('./core'),
     Class: require('./utils/Class'),
     Data: require('./data'),
     Display: { Masks: require('./display/mask') },
-    EventEmitter: require('./events/EventEmitter'),
-    Game: require('./boot/Game'),
+    Events: require('./events'),
+    Game: require('./core/Game'),
     GameObjects: {
         DisplayList: require('./gameobjects/DisplayList'),
         GameObjectCreator: require('./gameobjects/GameObjectCreator'),
@@ -55,17 +63,25 @@ var Phaser = {
             AnimationJSONFile: require('./loader/filetypes/AnimationJSONFile'),
             AtlasJSONFile: require('./loader/filetypes/AtlasJSONFile'),
             AudioFile: require('./loader/filetypes/AudioFile'),
-            AudioSprite: require('./loader/filetypes/AudioSprite'),
+            AudioSpriteFile: require('./loader/filetypes/AudioSpriteFile'),
             HTML5AudioFile: require('./loader/filetypes/HTML5AudioFile'),
             ImageFile: require('./loader/filetypes/ImageFile'),
             JSONFile: require('./loader/filetypes/JSONFile'),
-            MultiAtlas: require('./loader/filetypes/MultiAtlas'),
+            MultiAtlasFile: require('./loader/filetypes/MultiAtlasFile'),
             PluginFile: require('./loader/filetypes/PluginFile'),
             ScriptFile: require('./loader/filetypes/ScriptFile'),
             SpriteSheetFile: require('./loader/filetypes/SpriteSheetFile'),
             TextFile: require('./loader/filetypes/TextFile'),
             XMLFile: require('./loader/filetypes/XMLFile')
-        }
+        },
+        File: require('./loader/File'),
+        FileTypesManager: require('./loader/FileTypesManager'),
+        GetURL: require('./loader/GetURL'),
+        LoaderPlugin: require('./loader/LoaderPlugin'),
+        MergeXHRSettings: require('./loader/MergeXHRSettings'),
+        MultiFile: require('./loader/MultiFile'),
+        XHRLoader: require('./loader/XHRLoader'),
+        XHRSettings: require('./loader/XHRSettings')
     },
     Math: {
         Between: require('./math/Between'),
@@ -74,10 +90,11 @@ var Phaser = {
         RadToDeg: require('./math/RadToDeg'),
         Vector2: require('./math/Vector2')
     },
+    Plugins: require('./plugins'),
     Renderer: require('./renderer'),
+    Scale: require('./scale'),
     Scene: require('./scene/Scene'),
     Scenes: require('./scene'),
-    Sound: require('./sound'),
     Structs: require('./structs'),
     Textures: require('./textures'),
     Time: require('./time'),
@@ -89,6 +106,11 @@ var Phaser = {
 Phaser = Extend(false, Phaser, CONST);
 
 //  Export it
+
+if (typeof FEATURE_SOUND)
+{
+    Phaser.Sound = require('./sound');
+}
 
 module.exports = Phaser;
 

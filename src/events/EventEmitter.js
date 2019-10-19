@@ -1,23 +1,19 @@
 /**
  * @author       Richard Davey <rich@photonstorm.com>
- * @copyright    2018 Photon Storm Ltd.
- * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ * @copyright    2019 Photon Storm Ltd.
+ * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
 var Class = require('../utils/Class');
 var EE = require('eventemitter3');
-var PluginManager = require('../boot/PluginManager');
-
-/**
- * @namespace Phaser.Events
- */
+var PluginCache = require('../plugins/PluginCache');
 
 /**
  * @classdesc
  * EventEmitter is a Scene Systems plugin compatible version of eventemitter3.
  *
  * @class EventEmitter
- * @memberOf Phaser.Events
+ * @memberof Phaser.Events
  * @constructor
  * @since 3.0.0
  */
@@ -145,9 +141,9 @@ var EventEmitter = new Class({
  * @since 3.0.0
  *
  * @param {(string|symbol)} event - The event name.
- * @param {function} fn - Only remove the listeners that match this function.
- * @param {*} context - Only remove the listeners that have this context.
- * @param {boolean} once - Only remove one-time listeners.
+ * @param {function} [fn] - Only remove the listeners that match this function.
+ * @param {*} [context] - Only remove the listeners that have this context.
+ * @param {boolean} [once] - Only remove one-time listeners.
  *
  * @return {Phaser.Events.EventEmitter} `this`.
  */
@@ -159,9 +155,9 @@ var EventEmitter = new Class({
  * @since 3.0.0
  *
  * @param {(string|symbol)} event - The event name.
- * @param {function} fn - Only remove the listeners that match this function.
- * @param {*} context - Only remove the listeners that have this context.
- * @param {boolean} once - Only remove one-time listeners.
+ * @param {function} [fn] - Only remove the listeners that match this function.
+ * @param {*} [context] - Only remove the listeners that have this context.
+ * @param {boolean} [once] - Only remove one-time listeners.
  *
  * @return {Phaser.Events.EventEmitter} `this`.
  */
@@ -177,6 +173,6 @@ var EventEmitter = new Class({
  * @return {Phaser.Events.EventEmitter} `this`.
  */
 
-PluginManager.register('EventEmitter', EventEmitter, 'events');
+PluginCache.register('EventEmitter', EventEmitter, 'events');
 
 module.exports = EventEmitter;
